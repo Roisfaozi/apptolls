@@ -2,8 +2,9 @@ export const metadata = {
   title: 'Sign Up - Simple',
   description: 'Page description',
 }
-import Link from 'next/link';
 
+import SignUpForm from '@/components/UI/SignUpForm';
+import Link from 'next/link';
 export default function SignUp() {
 
   return (
@@ -18,7 +19,7 @@ export default function SignUp() {
 
           {/* Form */}
           <div className="max-w-sm mx-auto">
-            <SignUp />
+            <SignUpForm />
             <div className="flex items-center my-6">
               <div className="border-t border-gray-300 grow mr-3" aria-hidden="true"></div>
               <div className="text-gray-600 italic">Or</div>
