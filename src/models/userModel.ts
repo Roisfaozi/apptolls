@@ -19,7 +19,7 @@ const userSchema = new Schema<UserDocument, {}, Methods>(
     name: { type: String, required: true, trim: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['admin', 'user'], default: 'user' },
-    licenseKey: { type: String, unique: true },
+    licenseKey: { type: String, default: '' },
   },
   { timestamps: true }
 )
