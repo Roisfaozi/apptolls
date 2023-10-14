@@ -22,11 +22,11 @@ export default function Home() {
         </main>
 
         {/* Add a Call-to-Action (CTA) for app purchase */}
-        <section className="cta-section">
-          <div className="container">
-            <h2>Get Started with Our App Today!</h2>
-            <p>Experience the power of our app and supercharge your productivity.</p>
-            <a href="/purchase" className="cta-button">Buy Now</a>
+        <section className="bg-blue-500 py-16 text-white">
+          <div className="container mx-auto">
+            <h2 className="text-3xl font-semibold">Get Started with Our App Today!</h2>
+            <p className="text-lg">Experience the power of our app and supercharge your productivity.</p>
+            <a href="/purchase" className="bg-yellow-500 px-6 py-2 rounded-full text-lg mt-4 inline-block hover:bg-yellow-600">Buy Now</a>
           </div>
         </section>
         <Footer />
