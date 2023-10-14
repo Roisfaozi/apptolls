@@ -3,36 +3,8 @@ export const metadata = {
   description: 'Page description',
 }
 import Link from 'next/link';
-import { ChangeEventHandler, useState } from 'react';
 
 export default function SignUp() {
-
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const { name, email, password } = userInfo
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    const { name, value } = target;
-    setUserInfo({ ...userInfo, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const oldUser = await UserModel.findOne({ email: userInfo.email });
-    if (oldUser) {
-      return alert("Email sudah digunakan!");
-    }
-
-    const user = await UserModel.create({ ...userInfo });
-
-    useNavigate("/login");
-  };
-
 
   return (
     <section className="bg-gradient-to-b from-gray-100 to-white">
