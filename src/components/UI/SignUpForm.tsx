@@ -94,7 +94,7 @@ function SignUpForm() {
         name="password"
       />
       <p className={`text-red-500 text-sm mb-4 h-2`}>{error.password}</p>
-      <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full" type="submit">Sign up</button>
+      <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full" disabled={isBusy} style={{ opacity: isBusy ? 0.5 : 1 }} type="submit">Sign up</button>
       <div className="text-sm text-gray-500 text-center mt-3">
         By creating an account, you agree to the <a className="underline" href="#0">terms & conditions</a>, and our <a className="underline" href="#0">privacy policy</a>.
       </div>
