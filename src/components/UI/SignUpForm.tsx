@@ -2,9 +2,6 @@
 import { ChangeEventHandler, useState } from 'react';
 import Input from '../utils/Input';
 
-interface SignUpFormProps {
-  onSubmit: () => void; // Ganti dengan fungsi penanganan pengiriman formulir yang sesuai
-}
 
 function SignUpForm() {
   const [userInfo, setUserInfo] = useState({
@@ -12,7 +9,7 @@ function SignUpForm() {
     email: "",
     password: "",
   });
-
+  const [isBusy, setIsBusy] = useState(false)
   const [error, setError] = useState({
     email: "",
     password: "",
@@ -25,7 +22,6 @@ function SignUpForm() {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
 
-    // Validasi email saat pengguna mengetik
     if (name === "email") {
       if (!isValidEmail(value) && value !== '') {
         setError({ ...error, email: "Invalid email format. Missing @ in the email address" });
@@ -44,20 +40,22 @@ function SignUpForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Cek apakah masih ada pesan kesalahan
+    setIsBusy(true)
     if (error.email || error.password) {
       return;
     }
 
-    // Lanjutkan dengan penanganan pengiriman formulir jika semuanya valid
-    // onSubmit(); // Uncomment this line to handle form submission
+    const res = await fetch('/api/auth/users', {
+      method: "POST",
+      body: JSON.stringify(userInfo)
+    }).then((res) => res.json())
+    setIsBusy(false)
+
   };
 
   const isValidEmail = (email: string) => {
-    // Validasi email dengan ekspresi reguler
     const emailRegex = /^\S+@\S+\.\S+$/;
     return emailRegex.test(email);
   };
