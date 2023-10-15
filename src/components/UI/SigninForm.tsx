@@ -1,12 +1,77 @@
 'use client'
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { ChangeEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import Alert from '../utils/Alert';
 import Input from '../utils/Input';
 
-
 function SignInForm() {
+  const router = useRouter()
+
+  const [isError, setIsError] = useState('')
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const [isBusy, setIsBusy] = useState(false)
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = userInfo;
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
+
+    if (name === "email") {
+      if (!isValidEmail(value) && value !== '') {
+        setError({ ...error, email: "Invalid email format. Missing @ in the email address" });
+      } else {
+        setError({ ...error, email: "" });
+      }
+    }
+
+    if (name === "password") {
+      if (value.length < 6 && value !== '') {
+        setError({ ...error, password: "Password must be at least 6 characters" });
+      } else {
+        setError({ ...error, password: "" });
+      }
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsBusy(true)
+    if (error.email || error.password) {
+      return;
+    }
+
+    const res = await signIn("credentials", {
+      email,
+      password,
+      redirect: false
+    })
+    if (res?.error) return setIsError(res.error)
+    setIsBusy(false)
+    router.replace('/profile')
+  };
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    return emailRegex.test(email);
+  };
   return (
     <form >
+      {isError ? (
+        <div className="mb-3">
+          <Alert value={isError} />
+        </div>
+      ) : null}
       <Input label="Email" id="email" type="email" placeholder="Enter your email address" required name='email' value={'name'} onChange={function (event: ChangeEvent<HTMLInputElement>): void {
         throw new Error('Function not implemented.');
       }} />
