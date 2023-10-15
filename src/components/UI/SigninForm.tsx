@@ -2,7 +2,7 @@
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import Alert from '../utils/Alert';
 import Input from '../utils/Input';
 
@@ -66,19 +66,15 @@ function SignInForm() {
     return emailRegex.test(email);
   };
   return (
-    <form >
+    <form onSubmit={handleSubmit}>
       {isError ? (
         <div className="mb-3">
           <Alert value={isError} />
         </div>
       ) : null}
-      <Input label="Email" id="email" type="email" placeholder="Enter your email address" required name='email' value={'name'} onChange={function (event: ChangeEvent<HTMLInputElement>): void {
-        throw new Error('Function not implemented.');
-      }} />
+      <Input label="Email" id="email" type="email" placeholder="Enter your email address" required name='email' value={email} onChange={handleChange} />
 
-      <Input id="password" type="password" placeholder="Enter your password" required label="Password" name='password' value={'password'} onChange={function (event: ChangeEvent<HTMLInputElement>): void {
-        throw new Error('Function not implemented.');
-      }} />
+      <Input id="password" type="password" placeholder="Enter your password" required label="Password" name='password' value={password} onChange={handleChange} />
 
       <div className="flex flex-wrap -mx-3 mb-4">
         <div className="w-full px-3">
@@ -92,7 +88,7 @@ function SignInForm() {
           </div>
         </div>
       </div>
-      <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full" type="submit">Sign in</button>
+      <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full" disabled={isBusy} style={{ opacity: isBusy ? 0.5 : 1 }} type="submit">Sign in</button>
     </form>
   );
 }
