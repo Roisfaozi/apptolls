@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
         const user = await UserModel.findOne({ email })
         if (!user) throw Error('email/password mismatch!')
         const passwordMatch = await user.comparePassword(password)
-        if (!user) throw Error('email/password mismatch!')
+        if (!passwordMatch) throw Error('email/password mismatch!')
 
         return {
           name: user.name,
