@@ -1,9 +1,11 @@
 'use client'
+import { useRouter } from 'next/router';
 import { ChangeEventHandler, useState } from 'react';
 import Input from '../utils/Input';
 
 
 function SignUpForm() {
+  const router = useRouter()
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -51,8 +53,8 @@ function SignUpForm() {
       method: "POST",
       body: JSON.stringify(userInfo)
     }).then((res) => res.json())
-    setIsBusy(false)
 
+    router.push('/profile')
   };
 
   const isValidEmail = (email: string) => {
