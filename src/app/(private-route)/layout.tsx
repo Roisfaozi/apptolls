@@ -9,7 +9,6 @@ async function PrivateLayout({
   children: React.ReactNode
 }) {
   const session = await getServerSession(authOptions)
-  console.log(session?.user)
   if (!session?.user) redirect('/signin')
   return <>{children}</>
 }
