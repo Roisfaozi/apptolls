@@ -6,7 +6,6 @@ interface UserDocument extends Document {
   name: string
   password: string
   role: 'admin' | 'user'
-  licenseKey: string
 }
 
 interface Methods {
@@ -19,7 +18,6 @@ const userSchema = new Schema<UserDocument, {}, Methods>(
     name: { type: String, required: true, trim: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['admin', 'user'], default: 'user' },
-    licenseKey: { type: String, default: '' },
   },
   { timestamps: true }
 )
