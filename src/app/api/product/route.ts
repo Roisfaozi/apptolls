@@ -81,3 +81,44 @@ export const GET = async (): Promise<Response> => {
     )
   }
 }
+
+export const PUT = async (req: Request): Promise<Response> => {
+  try {
+    const session = await getAuthSession()
+    await startDb()
+
+    if (!session?.user) {
+      return new NextResponse('Unauthorized', { status: 401 })
+    }
+    const query = new URL(req.url).searchParams
+    const productId = query.get('id') as string
+    const productData = (await req.json()) as NewProductRequest
+    console.log(productId)
+    const product = await ProductModel.findById(productId)
+
+    if (!product) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 })
+    }
+
+    product.name = productData.name
+    product.description = productData.description
+    product.price = productData.price
+
+    await product.save()
+
+    return NextResponse.json({
+      product: {
+        id: product._id.toString(),
+        name: product.name,
+        description: product.description,
+        price: product.price,
+      },
+    })
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      { error: 'Failed to update the product' },
+      { status: 500 }
+    )
+  }
+}
