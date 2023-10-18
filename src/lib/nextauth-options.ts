@@ -1,5 +1,5 @@
 import UserModel from '@/models/userModel'
-import { NextAuthOptions } from 'next-auth'
+import { NextAuthOptions, getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import startDb from './db'
 export const authOptions: NextAuthOptions = {
@@ -48,4 +48,8 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
+}
+
+export const getAuthSession = async () => {
+  return getServerSession(authOptions)
 }
