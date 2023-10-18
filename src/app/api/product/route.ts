@@ -55,3 +55,25 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     )
   }
 }
+
+export const GET = async (): Promise<Response> => {
+  try {
+    await startDb()
+    const products = await ProductModel.find()
+
+    return NextResponse.json({
+      products: products.map((product) => ({
+        id: product._id.toString(),
+        name: product.name,
+        description: product.description,
+        price: product.price,
+      })),
+    })
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      { error: 'Failed to fetch products' },
+      { status: 500 }
+    )
+  }
+}
