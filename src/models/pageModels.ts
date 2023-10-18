@@ -9,7 +9,7 @@ interface IPage extends Document {
 const pageSchema: Schema<IPage> = new Schema({
   pageId: { type: String, required: true },
   contentId: [{ type: ObjectId, ref: 'Content' }],
-  userId: [{ type: ObjectId, required: true, ref: 'User' }],
+  userId: { type: ObjectId, required: true, ref: 'User' },
 })
 
 const PageModel: Model<IPage> = mongoose.model<IPage>('Page', pageSchema)
