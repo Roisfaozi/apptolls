@@ -3,24 +3,23 @@ const { ObjectId } = mongoose.Schema
 
 interface ILicense extends Document {
   licenseKey: string
-  productId: ObjectId
+  product_id: ObjectId
   purchasedAt: Date
   lastChecked: Date
-  userId: ObjectId
+  user_id: ObjectId
 }
 
 const licenseSchema: Schema<ILicense> = new Schema({
   licenseKey: { type: String, required: true },
-  productId: { type: ObjectId, required: true, ref: 'Product' },
+  product_id: { type: ObjectId, required: true, ref: 'Product' },
   purchasedAt: { type: Date, required: true },
   lastChecked: { type: Date, required: true },
-  userId: { type: ObjectId, required: true, ref: 'User' },
+  user_id: { type: ObjectId, required: true, ref: 'User' },
 })
 
-const LicenseModel: Model<ILicense> = mongoose.model<ILicense>(
-  'License',
-  licenseSchema
-)
+const LicenseModel: Model<ILicense> =
+  mongoose.models['License'] ||
+  mongoose.model<ILicense>('License', licenseSchema)
 
 export { LicenseModel }
 export type { ILicense }
