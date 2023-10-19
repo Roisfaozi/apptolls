@@ -6,7 +6,7 @@ interface IProduct extends Document {
   description: string
   price: number
   purchasedCount: number
-  license_id: ObjectId
+  license_id: ObjectId[]
 }
 
 const productSchema: Schema<IProduct> = new Schema({
