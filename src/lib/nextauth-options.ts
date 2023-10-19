@@ -2,6 +2,9 @@ import UserModel from '@/models/userModel'
 import { NextAuthOptions, getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import startDb from './db'
+
+// Merging the DefaultSession interface with additional propertiesimport NextAuth, { DefaultSession } from "next-auth"
+
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
