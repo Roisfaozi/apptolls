@@ -14,10 +14,8 @@ const productSchema: Schema<IProduct> = new Schema({
   purchasedCount: { type: Number, required: true, default: 0 },
 })
 
-const ProductModel: Model<IProduct> = mongoose.model<IProduct>(
-  'Product',
-  productSchema
-)
+export const ProductModel: Model<IProduct> =
+  mongoose.models['Product'] ||
+  mongoose.model<IProduct>('Product', productSchema)
 
-export { ProductModel }
 export type { IProduct }
