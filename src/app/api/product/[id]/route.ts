@@ -6,17 +6,16 @@ import { NewProductRequest, NewResponse } from '../route'
 
 export const GET = async (
   req: Request,
-  context: {
-    params: { id: string }
-  }
+  context: { params: { id: string } }
 ): Promise<NewResponse> => {
   try {
     const session = await getAuthSession()
-
     if (!session?.user) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
+
     await startDb()
+
     const id = context.params.id
     const product = await ProductModel.findById(id)
 
@@ -24,18 +23,24 @@ export const GET = async (
       return NextResponse.json({ error: 'Product not found' }, { status: 404 })
     }
 
+    const license_ids = product.license_id.map((license) => license)
+    console.log(license_ids)
+
     return NextResponse.json({
       product: {
         id: product._id.toString(),
         name: product.name,
         description: product.description,
         price: product.price,
+        license_id: product.license_id.map((license) => license.toString()),
       },
     })
   } catch (error) {
     console.error(error)
     return NextResponse.json(
-      { error: 'Failed to fetch products' },
+      {
+        error: 'Failed to fetch products',
+      },
       { status: 500 }
     )
   }
