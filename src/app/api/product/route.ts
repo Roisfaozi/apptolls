@@ -13,6 +13,7 @@ export interface NewProductResponse {
   name: string
   description: string
   price: number
+  license_id?: string[]
 }
 
 export type NewResponse = NextResponse<{
@@ -38,7 +39,6 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     }
 
     const newProduct = await ProductModel.create({ ...productData })
-
     return NextResponse.json({
       product: {
         id: newProduct._id.toString(),
