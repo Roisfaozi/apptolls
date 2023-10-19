@@ -75,3 +75,29 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     )
   }
 }
+
+export const GET = async (req: Request): Promise<Response> => {
+  try {
+    const session = await getAuthSession()
+    if (!session?.user) {
+      return new NextResponse('unauthorised', { status: 401 })
+    }
+    await startDb()
+    const license = await LicenseModel.find()
+      .populate({ path: 'user_id', select: 'id name' })
+      .populate({ path: 'product_id', select: 'id name' })
+    if (!license) {
+      return NextResponse.json({ error: 'License not found' }, { status: 404 })
+    }
+
+    return NextResponse.json({
+      license,
+    })
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json(
+      { error: 'Failed to create new license' },
+      { status: 500 }
+    )
+  }
+}
