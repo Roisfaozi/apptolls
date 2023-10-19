@@ -58,6 +58,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     await product.save()
 
     return NextResponse.json({
+      message: 'Kode lisensi berhasil dibuat. Anda sudah bisa memakai aplikasi',
       license: {
         id: newLicense._id,
         licenseKey: newLicense.licenseKey,
