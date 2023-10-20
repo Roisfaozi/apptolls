@@ -23,8 +23,6 @@ export const GET = async (
       return NextResponse.json({ error: 'Product not found' }, { status: 404 })
     }
 
-    const license_ids = product.license_id.map((license) => license)
-
     return NextResponse.json({
       product: {
         id: product._id.toString(),
