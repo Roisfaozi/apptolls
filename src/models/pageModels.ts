@@ -13,7 +13,7 @@ const pageSchema: Schema<IPage> = new Schema({
 })
 
 const PageModel: Model<IPage> =
-  mongoose.models['Product'] || mongoose.model<IPage>('Page', pageSchema)
+  mongoose.models['Page'] || mongoose.model<IPage>('Page', pageSchema)
 
 export { PageModel }
 export type { IPage }
