@@ -29,6 +29,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     }
     const pageData = (await req.json()) as NewPageRequest
     await startDb()
+    const id = session?.user?.id
     const oldProduct = await PageModel.findOne({ name: pageData.page_id })
     if (oldProduct) {
       return NextResponse.json(
@@ -36,13 +37,17 @@ export const POST = async (req: Request): Promise<NewResponse> => {
         { status: 422 }
       )
     }
+    const newPageData: NewPageRequest = {
+      page_id: pageData.page_id,
+      user_id: id,
+    }
 
-    const newPage = await PageModel.create({ ...pageData })
+    const newPage = await PageModel.create({ ...newPageData })
     return NextResponse.json({
       page: {
         id: newPage._id.toString(),
         page_id: newPage.page_id,
-        user_id: newPage.user_id.toString(),
+        user_id: id,
       },
     })
   } catch (error) {
