@@ -30,8 +30,8 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     const pageData = (await req.json()) as NewPageRequest
     await startDb()
     const id = session?.user?.id
-    const oldProduct = await PageModel.findOne({ name: pageData.page_id })
-    if (oldProduct) {
+    const oldPage = await PageModel.findOne({ name: pageData.page_id })
+    if (oldPage) {
       return NextResponse.json(
         { error: 'product is already added!' },
         { status: 422 }
@@ -53,7 +53,33 @@ export const POST = async (req: Request): Promise<NewResponse> => {
   } catch (error) {
     console.log(error)
     return NextResponse.json(
-      { error: 'Failed to create new product' },
+      { error: 'Failed to create new page' },
+      { status: 500 }
+    )
+  }
+}
+
+export const GET = async (req: Request): Promise<Response> => {
+  try {
+    const session = await getAuthSession()
+    if (!session?.user) {
+      return new NextResponse('unauthorised', { status: 401 })
+    }
+    await startDb()
+    const page = await PageModel.find()
+      .populate({
+        path: 'user_id',
+        select: 'id name',
+      })
+      .populate({ path: 'content_id', select: 'id title' })
+    console.log(page)
+    return NextResponse.json({
+      page,
+    })
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json(
+      { error: 'Failed to find new pages' },
       { status: 500 }
     )
   }
