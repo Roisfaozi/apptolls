@@ -87,9 +87,12 @@ export const PUT = async (
   }
 }
 
-export const DELETE = async (context: {
-  params: { id: string }
-}): Promise<NewResponse> => {
+export const DELETE = async (
+  req: Request,
+  context: {
+    params: { id: string }
+  }
+): Promise<NewResponse> => {
   try {
     const session = await getAuthSession()
     if (!session?.user) {
