@@ -12,7 +12,8 @@ const pageSchema: Schema<IPage> = new Schema({
   user_id: { type: ObjectId, required: true, ref: 'User' },
 })
 
-const PageModel: Model<IPage> = mongoose.model<IPage>('Page', pageSchema)
+const PageModel: Model<IPage> =
+  mongoose.models['Product'] || mongoose.model<IPage>('Page', pageSchema)
 
 export { PageModel }
 export type { IPage }
