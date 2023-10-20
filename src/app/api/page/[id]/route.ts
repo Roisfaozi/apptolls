@@ -73,3 +73,34 @@ export const PUT = async (
     )
   }
 }
+
+export const DELETE = async (
+  req: Request,
+  context: {
+    params: { id: string }
+  }
+): Promise<NewResponse> => {
+  try {
+    const session = await getAuthSession()
+    if (!session?.user) {
+      return new NextResponse('Unauthorized', { status: 401 })
+    }
+    await startDb()
+    const id = context.params.id
+    const page = await PageModel.findById(id)
+    console.log(id)
+    if (!page) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 })
+    }
+
+    await page.deleteOne()
+
+    return NextResponse.json({ message: 'Page deleted successfully' })
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      { error: 'Failed to delete the page' },
+      { status: 500 }
+    )
+  }
+}
