@@ -24,7 +24,6 @@ export const GET = async (
     }
 
     const license_ids = product.license_id.map((license) => license)
-    console.log(license_ids)
 
     return NextResponse.json({
       product: {
@@ -95,7 +94,6 @@ export const DELETE = async (context: {
 }): Promise<NewResponse> => {
   try {
     const session = await getAuthSession()
-    console.log(session)
     if (!session?.user) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
