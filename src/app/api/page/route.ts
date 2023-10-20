@@ -3,19 +3,19 @@ import { getAuthSession } from '@/lib/nextauth-options'
 import { PageModel } from '@/models/pageModels'
 import { NextResponse } from 'next/server'
 
-interface NewPageRequest {
+export interface NewPageRequest {
   page_id: string
   content_id?: string[]
   user_id: string
 }
-interface NewPageResponse {
+export interface NewPageResponse {
   id: string
   page_id: string
   content_id?: string[]
   user_id?: string
 }
 
-type NewResponse = NextResponse<{
+export type NewResponse = NextResponse<{
   page?: NewPageResponse
   error?: string
   message?: string
@@ -47,7 +47,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       page: {
         id: newPage._id.toString(),
         page_id: newPage.page_id,
-        user_id: id,
+        user_id: newPage.user_id.toString(),
       },
     })
   } catch (error) {
