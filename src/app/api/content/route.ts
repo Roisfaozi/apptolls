@@ -42,7 +42,7 @@ export const POST = async (req: Request): Promise<Response> => {
     const oldContent = await ContentModel.findOne({ name: contentData.title })
     if (oldContent) {
       return NextResponse.json(
-        { error: 'product is already added!' },
+        { error: 'content is already added!' },
         { status: 422 }
       )
     }
@@ -106,7 +106,7 @@ export const GET = async (req: Request): Promise<Response> => {
   } catch (error) {
     console.log(error)
     return NextResponse.json(
-      { error: 'Failed to find new pages' },
+      { error: 'Failed to find new contents' },
       { status: 500 }
     )
   }

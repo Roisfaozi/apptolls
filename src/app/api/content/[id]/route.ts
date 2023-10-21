@@ -27,7 +27,7 @@ export const GET = async (
   } catch (error) {
     console.log(error)
     return NextResponse.json(
-      { error: 'Failed to find new pages' },
+      { error: 'Failed to find new contents' },
       { status: 500 }
     )
   }
@@ -47,11 +47,11 @@ export const DELETE = async (
 
     const content = await ContentModel.findById(id)
     await content?.deleteOne()
-    return NextResponse.json({ message: 'Page deleted successfully' })
+    return NextResponse.json({ message: 'contents deleted successfully' })
   } catch (error) {
     console.log(error)
     return NextResponse.json(
-      { error: 'Failed to find new pages' },
+      { error: 'Failed to find new contents' },
       { status: 500 }
     )
   }
