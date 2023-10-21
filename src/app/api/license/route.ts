@@ -60,7 +60,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     const textBody = await bodyEmail(product.name, newLicense.licenseKey)
     const mailSubject = `Your ${product.name} License Key is Here`
     const userEmail = session?.user?.email
-    await sendMail(mailSubject, 'jahat080@gmail.com', textBody)
+    await sendMail(mailSubject, userEmail, textBody)
     await product.save()
 
     return NextResponse.json({
