@@ -59,7 +59,6 @@ export const POST = async (req: Request): Promise<Response> => {
 
     if (!contentData.publishTime) {
       const formatTime = formatDate(currentTime.toString())
-      console.log(formatTime)
       publishTimeData = formatTime
     }
     if (!contentData.publishDate) {
@@ -76,7 +75,6 @@ export const POST = async (req: Request): Promise<Response> => {
     }
 
     const newContent = await ContentModel.create({ ...newContentData })
-    console.log(newContent)
     return NextResponse.json({
       newContent,
     })
@@ -102,7 +100,6 @@ export const GET = async (req: Request): Promise<Response> => {
         select: 'id name',
       })
       .populate({ path: 'page_id', select: 'id page_id' })
-    console.log(page)
     return NextResponse.json({
       page,
     })

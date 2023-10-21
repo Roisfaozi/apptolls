@@ -19,6 +19,5 @@ export default function formatDate(time: string): string {
   second = second < 10 ? '0' + second : second
   hour = hour < 10 ? '0' + hour : hour
   const clock = hour + ':' + minutes + ' ' + meridian
-  console.log(clock)
   return clock
 }

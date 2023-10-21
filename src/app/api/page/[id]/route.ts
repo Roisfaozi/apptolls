@@ -88,7 +88,6 @@ export const DELETE = async (
     await startDb()
     const id = context.params.id
     const page = await PageModel.findById(id)
-    console.log(id)
     if (!page) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 })
     }
