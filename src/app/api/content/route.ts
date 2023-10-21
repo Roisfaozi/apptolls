@@ -25,7 +25,7 @@ export interface NewContentResponse {
 }
 
 export type NewResponse = NextResponse<{
-  page?: NewContentResponse
+  content?: NewContentResponse
   error?: string
   message?: string
 }>
