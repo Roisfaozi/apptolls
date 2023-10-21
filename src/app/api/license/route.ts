@@ -43,7 +43,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     const product = await ProductModel.findById(licenseData.product_id)
 
     if (!product) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 })
+      return NextResponse.json({ error: 'content not found' }, { status: 404 })
     }
     const newLicenseData: NewLicenseRequest = {
       licenseKey: licenseCode,
@@ -58,7 +58,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     await product.save()
 
     return NextResponse.json({
-      message: 'Kode lisensi berhasil dibuat. Anda sudah bisa memakai aplikasi',
+      message: 'License succesfully created. Now you can start our app',
       license: {
         id: newLicense._id,
         licenseKey: newLicense.licenseKey,

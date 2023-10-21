@@ -76,7 +76,7 @@ export const DELETE = async (
     const license = await LicenseModel.findById(id)
 
     if (!license) {
-      return NextResponse.json({ error: 'License not found' }, { status: 404 })
+      return NextResponse.json({ error: 'Licenses not found' }, { status: 404 })
     }
     await license.deleteOne()
     return NextResponse.json({
@@ -85,7 +85,7 @@ export const DELETE = async (
   } catch (error) {
     console.log(error)
     return NextResponse.json(
-      { error: 'Failed to create new license' },
+      { error: 'Failed to create new licenses' },
       { status: 500 }
     )
   }
