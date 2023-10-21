@@ -94,14 +94,14 @@ export const GET = async (req: Request): Promise<Response> => {
       return new NextResponse('unauthorised', { status: 401 })
     }
     await startDb()
-    const page = await ContentModel.find()
+    const content = await ContentModel.find()
       .populate({
         path: 'user_id',
         select: 'id name',
       })
       .populate({ path: 'page_id', select: 'id page_id' })
     return NextResponse.json({
-      page,
+      content,
     })
   } catch (error) {
     console.log(error)
