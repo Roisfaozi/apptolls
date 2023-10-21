@@ -1,7 +1,6 @@
 import startDb from '@/lib/db'
 import { getAuthSession } from '@/lib/nextauth-options'
 import { ContentModel } from '@/models/contentModels'
-import { PageModel } from '@/models/pageModels'
 import formatDate from '@/utils/formatTime'
 import { NextResponse } from 'next/server'
 
@@ -97,12 +96,12 @@ export const GET = async (req: Request): Promise<Response> => {
       return new NextResponse('unauthorised', { status: 401 })
     }
     await startDb()
-    const page = await PageModel.find()
+    const page = await ContentModel.find()
       .populate({
         path: 'user_id',
         select: 'id name',
       })
-      .populate({ path: 'content_id', select: 'id title' })
+      .populate({ path: 'page_id', select: 'id page_id' })
     console.log(page)
     return NextResponse.json({
       page,
