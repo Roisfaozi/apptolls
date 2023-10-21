@@ -54,7 +54,7 @@ export const PUT = async (
     const page = await PageModel.findById(id)
 
     if (!page) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 })
+      return NextResponse.json({ error: 'page not found' }, { status: 404 })
     }
 
     page.page_id = pageData.page_id
@@ -89,7 +89,7 @@ export const DELETE = async (
     const id = context.params.id
     const page = await PageModel.findById(id)
     if (!page) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 })
+      return NextResponse.json({ error: 'page not found' }, { status: 404 })
     }
 
     await page.deleteOne()

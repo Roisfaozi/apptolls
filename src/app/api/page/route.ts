@@ -33,7 +33,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     const oldPage = await PageModel.findOne({ name: pageData.page_id })
     if (oldPage) {
       return NextResponse.json(
-        { error: 'product is already added!' },
+        { error: 'page is already added!' },
         { status: 422 }
       )
     }
