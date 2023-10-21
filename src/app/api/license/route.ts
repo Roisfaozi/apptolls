@@ -1,4 +1,5 @@
 import startDb from '@/lib/db'
+import sendMail, { bodyEmail } from '@/lib/emailService'
 import { getAuthSession } from '@/lib/nextauth-options'
 import { LicenseModel } from '@/models/licenseModels'
 import { ProductModel } from '@/models/productModels'
@@ -8,8 +9,8 @@ import { NextResponse } from 'next/server'
 export interface NewLicenseRequest {
   licenseKey: string
   product_id: string
-  purchasedAt: Date
-  lastChecked: Date
+  purchasedAt: string
+  lastChecked: string
   user_id: string
 }
 
@@ -17,8 +18,8 @@ export interface NewLicenseResponse {
   id: string
   licenseKey: string
   product_id: string
-  purchasedAt: Date
-  lastChecked: Date
+  purchasedAt: string
+  lastChecked: string
   user_id: string
 }
 
@@ -48,13 +49,18 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     const newLicenseData: NewLicenseRequest = {
       licenseKey: licenseCode,
       product_id: product._id,
-      purchasedAt: new Date(),
-      lastChecked: new Date(),
+      purchasedAt: new Date().toLocaleString(),
+      lastChecked: new Date().toLocaleString(),
       user_id: id,
     }
 
     const newLicense = await LicenseModel.create({ ...newLicenseData })
     product.license_id.push(newLicense._id)
+
+    const textBody = await bodyEmail(product.name, newLicense.licenseKey)
+    const mailSubject = `Your ${product.name} License Key is Here`
+    const userEmail = session?.user?.email
+    await sendMail(mailSubject, 'jahat080@gmail.com', textBody)
     await product.save()
 
     return NextResponse.json({
