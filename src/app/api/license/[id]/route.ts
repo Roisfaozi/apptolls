@@ -49,7 +49,7 @@ export const POST = async (
     if (!license) {
       return NextResponse.json({ error: 'License not found' }, { status: 404 })
     }
-    license.lastChecked = new Date()
+    license.lastChecked = new Date().toLocaleString()
     return NextResponse.json({
       license,
     })
