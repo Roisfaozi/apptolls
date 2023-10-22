@@ -72,7 +72,6 @@ export const GET = async (req: Request): Promise<Response> => {
         select: 'id name',
       })
       .populate({ path: 'content_id', select: 'id title' })
-    console.log(page)
     return NextResponse.json({
       page,
     })
