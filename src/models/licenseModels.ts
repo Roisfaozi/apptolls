@@ -2,7 +2,7 @@ import mongoose, { Document, Model, ObjectId, Schema } from 'mongoose'
 const { ObjectId } = mongoose.Schema
 
 interface ILicense extends Document {
-  licenseKey: string
+  license_key: string
   product_id: ObjectId
   purchasedAt: string
   lastChecked: string
@@ -10,7 +10,7 @@ interface ILicense extends Document {
 }
 
 const licenseSchema: Schema<ILicense> = new Schema({
-  licenseKey: { type: String, required: true },
+  license_key: { type: String, required: true },
   product_id: { type: ObjectId, required: true, ref: 'Product' },
   purchasedAt: { type: String, required: true },
   lastChecked: { type: String, required: true },
