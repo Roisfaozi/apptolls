@@ -1,7 +1,7 @@
-import mongoose, { Document, Model, ObjectId, Schema } from 'mongoose'
+import mongoose, { Model, ObjectId, Schema } from 'mongoose'
 const { ObjectId } = mongoose.Schema
 
-interface IContent extends Document {
+interface IContent {
   title: string
   description: string
   isScheduled: boolean

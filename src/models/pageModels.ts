@@ -1,6 +1,6 @@
-import mongoose, { Document, Model, ObjectId, Schema } from 'mongoose'
+import mongoose, { Model, ObjectId, Schema } from 'mongoose'
 const { ObjectId } = mongoose.Schema
-interface IPage extends Document {
+interface IPage {
   page_id: string
   content_id: ObjectId
   user_id: ObjectId

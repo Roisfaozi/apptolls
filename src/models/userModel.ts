@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import { Document, Model, Schema, model, models } from 'mongoose'
+import { Model, Schema, model, models } from 'mongoose'
 
-interface UserDocument extends Document {
+export interface UserDocument {
   email: string
   name: string
   password: string

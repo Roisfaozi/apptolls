@@ -1,7 +1,7 @@
-import mongoose, { Document, Model, ObjectId, Schema } from 'mongoose'
+import mongoose, { Model, ObjectId, Schema } from 'mongoose'
 const { ObjectId } = mongoose.Schema
 
-interface IProduct extends Document {
+interface IProduct {
   name: string
   description: string
   price: number
