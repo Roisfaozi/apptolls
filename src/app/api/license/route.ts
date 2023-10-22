@@ -7,7 +7,7 @@ import generateLicenseKey from '@/utils/generateLicense'
 import { NextResponse } from 'next/server'
 
 export interface NewLicenseRequest {
-  licenseKey: string
+  license_key: string
   product_id: string
   purchasedAt: string
   lastChecked: string
@@ -16,7 +16,7 @@ export interface NewLicenseRequest {
 
 export interface NewLicenseResponse {
   id: string
-  licenseKey: string
+  license_key: string
   product_id: string
   purchasedAt: string
   lastChecked: string
@@ -47,17 +47,17 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       return NextResponse.json({ error: 'content not found' }, { status: 404 })
     }
     const newLicenseData: NewLicenseRequest = {
-      licenseKey: licenseCode,
-      product_id: product._id,
+      license_key: licenseCode,
+      product_id: product._id.toString(),
       purchasedAt: new Date().toLocaleString(),
       lastChecked: new Date().toLocaleString(),
       user_id: id,
     }
 
     const newLicense = await LicenseModel.create({ ...newLicenseData })
-    product.license_id.push(newLicense._id)
+    product.license_id.push(newLicense._id.tu)
 
-    const textBody = await bodyEmail(product.name, newLicense.licenseKey)
+    const textBody = await bodyEmail(product.name, newLicense.license_key)
     const mailSubject = `Your ${product.name} License Key is Here`
     const userEmail = session?.user?.email
     await sendMail(mailSubject, userEmail, textBody)
@@ -67,7 +67,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       message: 'License succesfully created. Now you can start our app',
       license: {
         id: newLicense._id,
-        licenseKey: newLicense.licenseKey,
+        license_key: newLicense.license_key,
         product_id: newLicense.product_id.toString(),
         purchasedAt: newLicense.purchasedAt,
         lastChecked: newLicense.lastChecked,
