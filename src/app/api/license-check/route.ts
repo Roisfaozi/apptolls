@@ -1,30 +1,30 @@
-import NextAuth from 'next-auth/next'
+import startDb from '@/lib/db'
+import { LicenseModel } from '@/models/licenseModels'
+import { NextResponse } from 'next/server'
 
-export default NextAuth({
-  providers: [
-    Providers.Credentials({
-      // The name to display on the sign-in form (e.g. 'Sign in with...')
-      name: 'Credentials',
-      credentials: {
-        username: { label: 'Username', type: 'text' },
-        password: { label: 'Password', type: 'password' },
-      },
-      authorize: async (credentials) => {
-        // Here, you would check the credentials in your database
-        // Replace this with your logic for user sign-in
-        const user = {
-          id: 1,
-          name: credentials.username,
-          email: credentials.username, // You can use the provided email as well
-        }
-        return Promise.resolve(user)
-      },
-    }),
-  ],
-  pages: {
-    signIn: '/auth/sign-in',
-  },
-  session: {
-    jwt: true,
-  },
-})
+export const PUT = async (req: Request): Promise<Response> => {
+  try {
+    const { license_key } = await req.json()
+    await startDb()
+    const license = await LicenseModel.findOne({ license_key }).populate({
+      path: 'user_id',
+      select: 'id name',
+    })
+    if (!license) {
+      return NextResponse.json({ error: 'License not found' }, { status: 404 })
+    }
+
+    license.lastChecked = new Date().toLocaleString()
+    await license.save()
+
+    return NextResponse.json({
+      license,
+    })
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json(
+      { error: 'Failed to check new license' },
+      { status: 500 }
+    )
+  }
+}
