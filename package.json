@@ -14,7 +14,6 @@
     "aos": "^2.3.4",
     "bcrypt": "^5.1.1",
     "mongoose": "^7.6.2",
-    "mustache": "^4.2.0",
     "next": "13.5.4",
     "next-auth": "^4.23.2",
     "nodemailer": "^6.9.6",
