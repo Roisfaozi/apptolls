@@ -18,7 +18,13 @@ export const PUT = async (req: Request): Promise<Response> => {
     await license.save()
 
     return NextResponse.json({
-      license,
+      license: {
+        id: license._id,
+        license_key: license.license_key,
+        product_id: license.product_id,
+        user_id: license.user_id,
+        valid: true,
+      },
     })
   } catch (error) {
     console.log(error)
