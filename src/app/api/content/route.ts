@@ -32,13 +32,8 @@ export type NewResponse = NextResponse<{
 
 export const POST = async (req: Request): Promise<Response> => {
   try {
-    const session = await getAuthSession()
-    if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
-    }
     const contentData = (await req.json()) as NewContentRequest
     await startDb()
-    const id = session?.user?.id
     const oldContent = await ContentModel.findOne({ name: contentData.title })
     if (oldContent) {
       return NextResponse.json(
@@ -71,7 +66,7 @@ export const POST = async (req: Request): Promise<Response> => {
       publishDate: publishDateData,
       publishTime: publishTimeData,
       page_id: contentData.page_id,
-      user_id: id,
+      user_id: contentData.user_id,
     }
 
     const newContent = await ContentModel.create({ ...newContentData })
@@ -103,6 +98,25 @@ export const GET = async (req: Request): Promise<Response> => {
     return NextResponse.json({
       content,
     })
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json(
+      { error: 'Failed to find new contents' },
+      { status: 500 }
+    )
+  }
+}
+
+export const DELETE = async (req: Request): Promise<Response> => {
+  try {
+    const session = await getAuthSession()
+    if (!session?.user) {
+      return new NextResponse('unauthorised', { status: 401 })
+    }
+    await startDb()
+
+    const content = await ContentModel.deleteMany()
+    return NextResponse.json({ message: 'All contents deleted successfully' })
   } catch (error) {
     console.log(error)
     return NextResponse.json(
