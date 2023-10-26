@@ -13,7 +13,7 @@ interface IContent {
 
 const contentSchema: Schema<IContent> = new Schema({
   title: { type: String, required: true },
-  description: { type: String },
+  description: { type: String, default: '' },
   isScheduled: { type: Boolean, required: true },
   publishTime: { type: String, required: true },
   publishDate: { type: String, required: true },
