@@ -44,7 +44,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     const product = await ProductModel.findById(licenseData.product_id)
 
     if (!product) {
-      return NextResponse.json({ error: 'content not found' }, { status: 404 })
+      return NextResponse.json({ error: 'product not found' }, { status: 404 })
     }
     const newLicenseData: NewLicenseRequest = {
       license_key: licenseCode,
