@@ -1,6 +1,7 @@
 import startDb from '@/lib/db'
 import { getAuthSession } from '@/lib/nextauth-options'
 import { ContentModel } from '@/models/contentModels'
+import { PageModel } from '@/models/pageModels'
 import formatDate from '@/utils/formatTime'
 import { NextResponse } from 'next/server'
 
@@ -10,7 +11,7 @@ export interface NewContentRequest {
   isScheduled: boolean
   publishTime: string
   publishDate: string
-  page_id: string
+  page_id: string | undefined
   user_id: string
 }
 export interface NewContentResponse {
@@ -34,13 +35,26 @@ export const POST = async (req: Request): Promise<Response> => {
   try {
     const contentData = (await req.json()) as NewContentRequest
     await startDb()
-    const oldContent = await ContentModel.findOne({ name: contentData.title })
+    const oldContent = await ContentModel.findOne({ title: contentData.title })
     if (oldContent) {
       return NextResponse.json(
         { error: 'content is already added!' },
         { status: 422 }
       )
     }
+
+    const page = await PageModel.findOne({
+      page_id: contentData.page_id,
+    })
+
+    const pageData = {
+      page_id: contentData.page_id,
+      user_id: contentData.user_id,
+    }
+    if (!page) {
+      await PageModel.create({ ...pageData })
+    }
+
     let schedule: boolean
     if (!contentData.publishDate && !contentData.publishTime) {
       schedule = false
@@ -59,17 +73,19 @@ export const POST = async (req: Request): Promise<Response> => {
     if (!contentData.publishDate) {
       publishDateData = currentTime.toLocaleDateString()
     }
+
     const newContentData: NewContentRequest = {
       title: contentData.title,
       description: contentData.description,
       isScheduled: schedule,
       publishDate: publishDateData,
       publishTime: publishTimeData,
-      page_id: contentData.page_id,
-      user_id: contentData.user_id,
+      page_id: page?._id?.toString(),
+      user_id: contentData.user_id.toString(),
     }
-
     const newContent = await ContentModel.create({ ...newContentData })
+    page?.content_id?.push(newContent._id)
+    page?.save()
     return NextResponse.json({
       newContent,
     })
@@ -89,12 +105,11 @@ export const GET = async (req: Request): Promise<Response> => {
       return new NextResponse('unauthorised', { status: 401 })
     }
     await startDb()
-    const content = await ContentModel.find()
-      .populate({
-        path: 'user_id',
-        select: 'id name',
-      })
-      .populate({ path: 'page_id', select: 'id page_id' })
+    const content = await ContentModel.find().populate({
+      path: 'user_id',
+      select: 'id name',
+    })
+
     return NextResponse.json({
       content,
     })
@@ -116,6 +131,13 @@ export const DELETE = async (req: Request): Promise<Response> => {
     await startDb()
 
     const content = await ContentModel.deleteMany()
+    const pages = await PageModel.find()
+
+    for (const page of pages) {
+      page.content_id = []
+      await page.save()
+    }
+
     return NextResponse.json({ message: 'All contents deleted successfully' })
   } catch (error) {
     console.log(error)
