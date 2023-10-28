@@ -2,7 +2,7 @@ import mongoose, { Model, ObjectId, Schema } from 'mongoose'
 const { ObjectId } = mongoose.Schema
 interface IPage {
   page_id: string
-  content_id: ObjectId
+  content_id?: mongoose.Types.ObjectId[]
   user_id: ObjectId
 }
 
