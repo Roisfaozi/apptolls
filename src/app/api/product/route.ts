@@ -1,5 +1,6 @@
 import startDb from '@/lib/db'
 import { getAuthSession } from '@/lib/nextauth-options'
+import { LicenseModel } from '@/models/licenseModels'
 import { ProductModel } from '@/models/productModels'
 import { NextResponse } from 'next/server'
 
@@ -63,7 +64,11 @@ export const GET = async (): Promise<Response> => {
       return new NextResponse('unauthorised', { status: 401 })
     }
     await startDb()
-    const products = await ProductModel.find()
+    const products = await ProductModel.find().populate({
+      path: 'license_id',
+      select: 'id license_id',
+    })
+    const license = await LicenseModel.find()
 
     return NextResponse.json({
       products: products.map((product) => ({
@@ -71,6 +76,7 @@ export const GET = async (): Promise<Response> => {
         name: product.name,
         description: product.description,
         price: product.price,
+        license_id: license,
       })),
     })
   } catch (error) {
