@@ -62,6 +62,7 @@ export const PUT = async (
     return NextResponse.json({
       page: {
         id: page._id.toString(),
+        name: page.name,
         page_id: page.page_id,
         user_id: page.user_id.toString(),
       },
