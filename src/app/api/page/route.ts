@@ -5,11 +5,13 @@ import { NextResponse } from 'next/server'
 
 export interface NewPageRequest {
   page_id: string
+  name?: string
   content_id?: string[]
   user_id: string
 }
 export interface NewPageResponse {
   id: string
+  name?: string
   page_id: string
   content_id?: string[]
   user_id?: string
@@ -39,6 +41,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     }
     const newPageData: NewPageRequest = {
       page_id: pageData.page_id,
+      name: pageData.name,
       user_id: id,
     }
 
@@ -46,6 +49,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     return NextResponse.json({
       page: {
         id: newPage._id.toString(),
+        name: newPage.name,
         page_id: newPage.page_id,
         user_id: newPage.user_id.toString(),
       },
