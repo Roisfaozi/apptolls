@@ -1,5 +1,6 @@
 import startDb from '@/lib/db'
 import { getAuthSession } from '@/lib/nextauth-options'
+import { ContentModel } from '@/models/contentModels'
 import { PageModel } from '@/models/pageModels'
 import { NextResponse } from 'next/server'
 import { NewPageRequest, NewResponse } from '../route'
@@ -91,7 +92,10 @@ export const DELETE = async (
     if (!page) {
       return NextResponse.json({ error: 'page not found' }, { status: 404 })
     }
-
+    const content_ids = page.content_id
+    content_ids?.forEach(async (content_id) => {
+      await ContentModel.deleteOne({ content_id })
+    })
     await page.deleteOne()
 
     return NextResponse.json({ message: 'Page deleted successfully' })
