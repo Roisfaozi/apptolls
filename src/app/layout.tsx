@@ -23,9 +23,7 @@ export default function RootLayout({
       <body className={`${inter.className} font-inter antialiased bg-white text-gray-900 tracking-tight`}>
         <AuthProvider>
 
-          <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
-            {children}
-          </div>
+          {children}
         </AuthProvider>
       </body>
     </html>
