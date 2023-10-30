@@ -1,5 +1,4 @@
 import AuthProvider from '@/components/AuthProvider'
-import Header from '@/components/UI/Header'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './css/style.css'
@@ -20,15 +19,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body className={`${inter.className} font-inter antialiased bg-white text-gray-900 tracking-tight`}>
+    <html lang="en">
+      <body className={`${inter.className} font-inter antialiased bg-white text-gray-900 tracking-tight`}>
+        <AuthProvider>
+
           <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
-            <Header />
             {children}
           </div>
-        </body>
-      </html>
-    </AuthProvider>
+        </AuthProvider>
+      </body>
+    </html>
   )
 }
