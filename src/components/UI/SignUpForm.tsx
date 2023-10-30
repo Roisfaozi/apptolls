@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/router';
 import { ChangeEventHandler, useState } from 'react';
-import Input from '../utils/Input';
+import Input from '../parts/Input';
 
 
 function SignUpForm() {
