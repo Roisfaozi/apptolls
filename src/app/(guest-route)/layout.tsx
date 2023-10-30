@@ -8,8 +8,10 @@ export default async function AuthLayout({
 }) {
   const session = await getServerSession(authOptions)
   return (
-    <>
+    <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+
       {children}
-    </>
+    </div >
+
   )
 }
