@@ -18,7 +18,8 @@
     "next-auth": "^4.23.2",
     "nodemailer": "^6.9.6",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "@types/aos": "^3.0.5",
@@ -26,6 +27,7 @@
     "@types/nodemailer": "^6.4.13",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-transition-group": "^4.4.8",
     "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
