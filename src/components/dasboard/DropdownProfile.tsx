@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Transition from '@/utils/transition';
 import Image from 'next/image';
 import Link from 'next/link';
-import UserAvatar from '../images/user-avatar-32.png';
+import UserAvatar from '../../images/user-avatar-32.png';
 
 interface DropdownProfileProps {
   align: 'left' | 'right';
