@@ -8,8 +8,8 @@ export default async function AuthLayout({
 }) {
   const session = await getServerSession(authOptions)
   return (
-    <main>
+    <>
       {children}
-    </main>
+    </>
   )
 }
