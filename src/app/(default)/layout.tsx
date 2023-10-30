@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 
 import Footer from '@/components/UI/Footer'
+import Header from '@/components/UI/Header'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -25,6 +26,7 @@ export default function DefaultLayout({
 
   return (
     <>
+      < Header />
       <main className="grow">
 
         {children}
