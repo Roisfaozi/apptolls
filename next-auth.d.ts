@@ -10,6 +10,7 @@ declare module 'next-auth' {
       email: any
       id: string
       role: string
+      name: string
     }
   }
 }
