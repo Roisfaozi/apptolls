@@ -1,7 +1,7 @@
 "use client"
 import Logo from '@/components/UI/Logo';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
@@ -11,9 +11,8 @@ interface SidebarProps {
 }
 
 function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps): React.ReactNode {
-  const router = useRouter()
+  const pathname = usePathname()
 
-  const { pathname } = router
 
   const trigger = useRef<HTMLButtonElement | null>(null);
   const sidebar = useRef<HTMLDivElement | null>(null);
