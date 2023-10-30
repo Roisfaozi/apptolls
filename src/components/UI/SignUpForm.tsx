@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { ChangeEventHandler, useState } from 'react';
 import Input from '../parts/Input';
 
