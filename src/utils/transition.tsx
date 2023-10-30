@@ -1,3 +1,4 @@
+"use client"
 import React, { useContext, useEffect, useRef } from 'react';
 import { CSSTransition as ReactCSSTransition } from 'react-transition-group';
 
@@ -30,7 +31,7 @@ type CSSTransitionProps = {
   appear?: boolean;
   unmountOnExit?: boolean;
   tag?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 function CSSTransition({
@@ -114,6 +115,9 @@ function CSSTransition({
 type TransitionProps = {
   show?: boolean;
   appear?: boolean;
+  className?: string;
+  id?: any;
+  role?: string
 } & CSSTransitionProps;
 
 function Transition({ show, appear, ...rest }: TransitionProps) {
