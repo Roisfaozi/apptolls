@@ -2,9 +2,9 @@ import ProfilePage from '@/components/UI/ProfilePage'
 
 function Profile() {
   return (
-    <div>
+    <main>
       <ProfilePage />
-    </div>
+    </main>
   )
 }
 
