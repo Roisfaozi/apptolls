@@ -1,13 +1,14 @@
 'use client'
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEventHandler, useState } from 'react';
-import Alert from '../utils/Alert';
-import Input from '../utils/Input';
+import Alert from '../parts/Alert';
+import Input from '../parts/Input';
 
 function SignInForm() {
   const router = useRouter()
+  const session = useSession()
 
   const [isError, setIsError] = useState('')
   const [userInfo, setUserInfo] = useState({
@@ -58,13 +59,17 @@ function SignInForm() {
     })
     if (res?.error) return setIsError(res.error)
     setIsBusy(false)
-    router.replace('/profile')
+    router.replace('/dashboard')
   };
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^\S+@\S+\.\S+$/;
     return emailRegex.test(email);
   };
+
+  if (session) router.push('/dashboard')
+
+
   return (
     <form onSubmit={handleSubmit}>
       {isError ? (
