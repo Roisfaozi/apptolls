@@ -58,7 +58,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps): React.ReactNode
   }, [sidebarExpanded]);
 
 
-
   return (
     <div>
       {/* Sidebar backdrop (mobile only) */}
@@ -117,7 +116,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps): React.ReactNode
                           }`}
                         onClick={(e) => {
                           e.preventDefault();
-                          console.log(sidebarExpanded)
                           sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                         }}
                       >
@@ -203,6 +201,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps): React.ReactNode
               {/* E-Commerce */}
               <SidebarLinkGroup activecondition={pathname.includes('ecommerce')}>
                 {(handleClick, open) => {
+
                   return (
                     <>
                       <a
