@@ -8,8 +8,7 @@ function PanelLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  console.log("lele", sidebarOpen)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
   return (
     <div className='flex h-screen overflow-hidden'>
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
