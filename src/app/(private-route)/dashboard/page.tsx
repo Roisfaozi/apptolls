@@ -1,46 +1,50 @@
 import MainCard from '@/components/dasboard/MainCard';
-import Image01 from '../../../images/user-64-01.jpg';
-import Image02 from '../../../images/user-64-02.jpg';
-import Image03 from '../../../images/user-64-03.jpg';
+import WelcomeBanner from '@/components/dasboard/Welcome Banner';
+import BoxesIcons from '@/components/dasboard/icons/Boxes';
+import CircleIcon from '@/components/dasboard/icons/Circle';
+import RubikIcon from '@/components/dasboard/icons/Rubik';
 function page() {
   const items = [
     {
       id: 0,
-      name: 'Dominik McNeail',
-      image: Image01,
-      link: '#0',
-      content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
+      name: 'Products',
+      image: <BoxesIcons />,
     },
     {
       id: 1,
-      name: 'Ivan Mesaros',
-      image: Image02,
-      link: '#0',
-      content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
+      name: 'License',
+      image: <CircleIcon />,
     },
     {
       id: 2,
-      name: 'Tisha Yanchev',
-      image: Image03,
-      link: '#0',
-      content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
+      name: 'Pages',
+      image: <RubikIcon />,
     },]
   return (
-    <div className='grid grid-cols-12 gap-6'>
-      {
-        items.map(item => {
-          return (
-            <MainCard
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              image={item.image}
-              link={item.link} />
-          )
-        })
-      }
-    </div>
+    <>
+      {/* Welcome banner */}
+      <WelcomeBanner />
+
+      {/* Dashboard actions */}
+      <div className='grid grid-cols-12 gap-6'>
+        {
+          items.map(item => {
+            return (
+
+              <MainCard
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                icon={item.image}
+              />
+            )
+          })
+        }
+      </div>
+    </>
+
   )
 }
 
 export default page
+
