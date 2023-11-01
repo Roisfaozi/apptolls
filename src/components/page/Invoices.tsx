@@ -53,9 +53,10 @@ function Invoices() {
           {/* Filter button */}
           <FilterButton align="right" />
         </div>
-        {/* Table */}
-        <InvoicesTable selectedItems={handleSelectedItems} />
+
       </div>
+      {/* Table */}
+      <InvoicesTable selectedItems={handleSelectedItems} />
     </>
   )
 }
