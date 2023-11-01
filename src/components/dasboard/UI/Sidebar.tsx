@@ -176,15 +176,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps): React.ReactNode
                           <div className="flex items-center">
                             <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                               <path
-                                className={`fill-current text-slate-400 ${pathname.includes('products') && 'text-indigo-300'}`}
+                                className={`fill-current text-slate-400 ${pathname.includes('shop') && 'text-indigo-300'}`}
                                 d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z"
                               />
                               <path
-                                className={`fill-current text-slate-700 ${pathname.includes('products') && '!text-indigo-600'}`}
+                                className={`fill-current text-slate-700 ${pathname.includes('shop') && '!text-indigo-600'}`}
                                 d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z"
                               />
                               <path
-                                className={`fill-current text-slate-600 ${pathname.includes('products') && 'text-indigo-500'}`}
+                                className={`fill-current text-slate-600 ${pathname.includes('shop') && 'text-indigo-500'}`}
                                 d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z"
                               />
                             </svg>
@@ -207,8 +207,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps): React.ReactNode
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className="mb-1 last:mb-0">
                             <Link
-                              href="/dashboard/products"
-                              className={`block text-slate-400 hover:text-slate-200 transition duration-150 truncate ${pathname === '/dashboard/products' ? '!text-indigo-500' : ''}`
+                              href="/dashboard/shop/products"
+                              className={`block text-slate-400 hover:text-slate-200 transition duration-150 truncate ${pathname === '/dashboard/shop/products' ? '!text-indigo-500' : ''}`
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -219,8 +219,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps): React.ReactNode
 
                           <li className="mb-1 last:mb-0">
                             <Link
-                              href="/ecommerce/invoices"
-                              className={`block text-slate-400 hover:text-slate-200 transition duration-150 truncate ${pathname === '/ecommerce/invoices' ? '!text-indigo-500' : ''}`
+                              href="/dashboard/shop/invoices"
+                              className={`block text-slate-400 hover:text-slate-200 transition duration-150 truncate ${pathname === '/dashboard/shop/invoices' ? '!text-indigo-500' : ''}`
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
