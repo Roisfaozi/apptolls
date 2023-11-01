@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import InvoicesTableItem from '../parts/InvoicesTableItem';
+import InvoicesTableItem from '../../parts/InvoicesTableItem';
 
 interface Invoice {
   id: string;
