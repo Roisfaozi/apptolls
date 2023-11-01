@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react';
+import InvoicesTable from '../dasboard/UI/InvoicesTable';
 import DateSelect from '../parts/DateSelect';
 import DeleteButton from '../parts/DeleteButton';
 import FilterButton from '../parts/FilterButton';
@@ -52,6 +53,8 @@ function Invoices() {
           {/* Filter button */}
           <FilterButton align="right" />
         </div>
+        {/* Table */}
+        <InvoicesTable selectedItems={handleSelectedItems} />
       </div>
     </>
   )
