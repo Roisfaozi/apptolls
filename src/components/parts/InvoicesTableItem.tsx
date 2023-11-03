@@ -1,3 +1,4 @@
+import Link from 'next/link';
 
 function InvoicesTableItem(props: any) {
 
@@ -55,7 +56,9 @@ function InvoicesTableItem(props: any) {
         </div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="font-medium text-sky-500">{props.invoice}</div>
+        <Link href={`/ecommerce/invoices/${props.invoice}`} >
+          <div className="font-medium text-sky-500">{props.invoice}</div>
+        </Link>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className={`font-medium ${totalColor(props.status)}`}>{props.total}</div>
