@@ -56,7 +56,7 @@ function InvoicesTableItem(props: any) {
         </div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <Link href={`/ecommerce/invoices/${props.invoice}`} >
+        <Link href={`/dashboard/shop/invoices/${props.id}`} >
           <div className="font-medium text-sky-500">{props.invoice}</div>
         </Link>
       </td>
