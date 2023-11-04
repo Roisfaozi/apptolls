@@ -1,7 +1,9 @@
 import Logo from '@/components/UI/Logo';
-import { Badge, Text, Title } from '@/utils/component-utils';
 import { QRCodeSVG } from 'qrcode.react';
+import { Text, Title } from 'rizzui';
 import Table from './Table';
+
+
 const invoiceItems = [
   {
     id: '1',
@@ -87,6 +89,7 @@ const columns = [
   },
 ];
 
+
 function InvoiceDetailsListTable() {
   return (
     <Table
@@ -102,58 +105,51 @@ function InvoiceDetailsListTable() {
 
 export default function InvoiceDetails() {
   return (
-    <div className="w-full rounded-xl border border-gray-200 p-5 text-sm sm:p-6 lg:p-8 2xl:p-10">
+    <div className="w-full rounded-xl border border-gray-200 p-5 p-sm sm:p-6 lg:p-8 2xl:p-10">
       <div className="mb-12 flex flex-col-reverse items-start justify-between md:mb-16 md:flex-row">
         <Logo />
         <div className="mb-4 md:mb-0">
-          <Badge
-            variant="flat"
-            color="success"
-            rounded="md"
-            className="mb-3 md:mb-2"
-          >
-            Paid
-          </Badge>
-          <Title as="h6">INV - #246098</Title>
-          <Text className="mt-0.5 text-gray-500">Invoice Number</Text>
+          <span className="rizzui-badge inline-flex items-center justify-center font-semibold color px-2.5 py-1.5 text-xs bg-green-lighter text-green-dark rounded-md mb-3 md:mb-2">Paid</span>
+          <h6>INV - #246098</h6>
+          <p className="mt-0.5 p-gray-500">Invoice Number</p>
           L</div>
       </div>
 
       <div className="mb-12 grid gap-4 xs:grid-cols-2 sm:grid-cols-3 sm:grid-rows-1">
         <div className="">
-          <Title as="h6" className="mb-3.5 font-semibold">
+          <h6 className="mb-3.5 font-semibold">
             From
-          </Title>
-          <Text className="mb-1.5 text-sm font-semibold uppercase">
+          </h6>
+          <p className="mb-1.5 p-sm font-semibold uppercase">
             REDQ, INC
-          </Text>
-          <Text className="mb-1.5">Jerome Bell</Text>
-          <Text className="mb-1.5">
+          </p>
+          <p className="mb-1.5">Jerome Bell</p>
+          <p className="mb-1.5">
             4140 Parker Rd. Allentown, <br /> New Mexico 31134
-          </Text>
-          <Text className="mb-4 sm:mb-6 md:mb-8">(302) 555-0107</Text>
+          </p>
+          <p className="mb-4 sm:mb-6 md:mb-8">(302) 555-0107</p>
           <div>
-            <Text className="mb-2 text-sm font-semibold">Creation Date</Text>
-            <Text>Mar 22, 2013</Text>
+            <p className="mb-2 p-sm font-semibold">Creation Date</p>
+            <p>Mar 22, 2013</p>
           </div>
         </div>
 
         <div className="mt-4 xs:mt-0">
-          <Title as="h6" className="mb-3.5 font-semibold">
+          <h6 className="mb-3.5 font-semibold">
             Bill To
-          </Title>
-          <Text className="mb-1.5 text-sm font-semibold uppercase">
+          </h6>
+          <p className="mb-1.5 p-sm font-semibold uppercase">
             TRANSPORT LLC
-          </Text>
-          <Text className="mb-1.5">Albert Flores</Text>
-          <Text className="mb-1.5">
+          </p>
+          <p className="mb-1.5">Albert Flores</p>
+          <p className="mb-1.5">
             2715 Ash Dr. San Jose, <br />
             South Dakota 83475
-          </Text>
-          <Text className="mb-4 sm:mb-6 md:mb-8">(671) 555-0110</Text>
+          </p>
+          <p className="mb-4 sm:mb-6 md:mb-8">(671) 555-0110</p>
           <div>
-            <Text className="mb-2 text-sm font-semibold">Due Date</Text>
-            <Text>Mar 22, 2013</Text>
+            <p className="mb-2 p-sm font-semibold">Due Date</p>
+            <p>Mar 22, 2013</p>
           </div>
         </div>
 
