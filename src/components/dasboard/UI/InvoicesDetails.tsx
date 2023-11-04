@@ -109,10 +109,14 @@ export default function InvoiceDetails() {
       <div className="mb-12 flex flex-col-reverse items-start justify-between md:mb-16 md:flex-row">
         <Logo />
         <div className="mb-4 md:mb-0">
-          <span className="rizzui-badge inline-flex items-center justify-center font-semibold color px-2.5 py-1.5 text-xs bg-green-lighter text-green-dark rounded-md mb-3 md:mb-2">Paid</span>
-          <h6>INV - #246098</h6>
-          <p className="mt-0.5 p-gray-500">Invoice Number</p>
-          L</div>
+          <span
+            className="bg-[#b9f9cf] text-[#11843c] px-2.5 py-1.5 text-xs font-semibold inline-flex items-center justify-center rounded-md mb-3 md:mb-2"
+          >
+            Paid
+          </span>
+          <h6 className='text-base font-bold'>INV - #246098</h6>
+          <p className="mt-0.5 text-gray-500 text-sm font-medium">Invoice Number</p>
+        </div>
       </div>
 
       <div className="mb-12 grid gap-4 xs:grid-cols-2 sm:grid-cols-3 sm:grid-rows-1">
