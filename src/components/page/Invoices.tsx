@@ -22,8 +22,6 @@ function Invoices() {
           <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Invoices ✨</h1>
         </div>
 
-
-
       </div>
       <div className="sm:flex sm:justify-between sm:items-center mb-5">
         {/* Left side */}
