@@ -3,11 +3,11 @@ import { getAuthSession } from '@/lib/nextauth-options'
 import { LicenseModel } from '@/models/licenseModels'
 import { ProductModel } from '@/models/productModels'
 import { NextResponse } from 'next/server'
-
 export interface NewProductRequest {
   name: string
   description: string
   price: number
+  imgaeID: string
 }
 export interface NewProductResponse {
   id: string
@@ -15,6 +15,7 @@ export interface NewProductResponse {
   description: string
   price: number
   license_id?: string[]
+  imageId?: string[]
 }
 
 export type NewResponse = NextResponse<{
@@ -23,9 +24,16 @@ export type NewResponse = NextResponse<{
   message?: string
 }>
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
+
 export const POST = async (req: Request): Promise<NewResponse> => {
   try {
     const session = await getAuthSession()
+
     if (!session?.user) {
       return new NextResponse('unauthorised', { status: 401 })
     }
@@ -38,7 +46,6 @@ export const POST = async (req: Request): Promise<NewResponse> => {
         { status: 422 }
       )
     }
-
     const newProduct = await ProductModel.create({ ...productData })
     return NextResponse.json({
       product: {

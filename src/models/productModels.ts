@@ -7,6 +7,7 @@ interface IProduct {
   price: number
   purchasedCount: number
   license_id: ObjectId[]
+  imageId: ObjectId[]
 }
 
 const productSchema: Schema<IProduct> = new Schema({
@@ -15,6 +16,7 @@ const productSchema: Schema<IProduct> = new Schema({
   price: { type: Number },
   purchasedCount: { type: Number, required: true, default: 0 },
   license_id: [{ type: ObjectId, ref: 'License' }],
+  imageId: [{ type: ObjectId, ref: 'Image' }],
 })
 
 const ProductModel: Model<IProduct> =
