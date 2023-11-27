@@ -56,6 +56,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
 
     const newLicense = await LicenseModel.create({ ...newLicenseData })
     product.license_id.push(newLicense._id)
+    product.purchasedCount += 1
 
     const textBody = await bodyEmail(product.name, newLicense.license_key)
     const mailSubject = `Your ${product.name} License Key is Here`
