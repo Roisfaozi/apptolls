@@ -1,5 +1,7 @@
+import { cloudinaryUpload } from '@/lib/cloudinary'
 import startDb from '@/lib/db'
 import { getAuthSession } from '@/lib/nextauth-options'
+import { ImageModel } from '@/models/imageModels'
 import { LicenseModel } from '@/models/licenseModels'
 import { ProductModel } from '@/models/productModels'
 import { NextResponse } from 'next/server'
@@ -7,7 +9,7 @@ export interface NewProductRequest {
   name: string
   description: string
   price: number
-  imgaeID: string
+  imageId: string
 }
 export interface NewProductResponse {
   id: string
@@ -37,16 +39,46 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     if (!session?.user) {
       return new NextResponse('unauthorised', { status: 401 })
     }
-    const productData = (await req.json()) as NewProductRequest
+    const productData = await req.formData()
+
     await startDb()
-    const oldProduct = await ProductModel.findOne({ name: productData.name })
+
+    const file = productData.get('imageUrl')
+    const name = productData.get('name')
+    const description = productData.get('description')
+    const price = productData.get('price')
+
+    if (!file || !(file instanceof Blob)) {
+      return NextResponse.json(
+        { error: 'No valid file received.' },
+        { status: 400 }
+      )
+    }
+
+    const oldProduct = await ProductModel.findOne({ name: name })
     if (oldProduct) {
       return NextResponse.json(
         { error: 'product is already added!' },
         { status: 422 }
       )
     }
-    const newProduct = await ProductModel.create({ ...productData })
+
+    const buffer = Buffer.from(await file.arrayBuffer())
+
+    const photoUrl: any = await cloudinaryUpload(buffer)
+
+    const imageSave = await ImageModel.create({
+      imageUrl: photoUrl.result.secure_url,
+    })
+
+    const newProduct = await ProductModel.create({
+      name: name,
+      description: description,
+      price: price,
+    })
+
+    newProduct.imageId.push(imageSave._id)
+    await newProduct.save()
     return NextResponse.json({
       product: {
         id: newProduct._id.toString(),

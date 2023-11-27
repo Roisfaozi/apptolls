@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import startDb from './db'
 // Merging the DefaultSession interface with additional propertiesimport NextAuth, { DefaultSession } from "next-auth"
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
@@ -52,6 +52,7 @@ export const authOptions: NextAuthOptions = {
   },
 }
 
-export const getAuthSession = async () => {
+const getAuthSession = async () => {
   return getServerSession(authOptions)
 }
+export { authOptions, getAuthSession }

@@ -7,7 +7,7 @@ interface IProduct {
   price: number
   purchasedCount: number
   license_id: ObjectId[]
-  imageId: ObjectId[]
+  imageId: mongoose.Types.ObjectId[]
 }
 
 const productSchema: Schema<IProduct> = new Schema({
