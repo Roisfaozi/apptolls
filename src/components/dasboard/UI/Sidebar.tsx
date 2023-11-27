@@ -16,8 +16,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps): React.ReactNode
 
   const trigger = useRef<HTMLButtonElement | null>(null);
   const sidebar = useRef<HTMLDivElement | null>(null);
-
-  const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
+  let storedSidebarExpanded
+  if (typeof window !== "undefined") {
+    storedSidebarExpanded = localStorage.getItem('sidebar-expanded')
+  }
   const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
   );

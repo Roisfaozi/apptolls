@@ -1,4 +1,5 @@
 "use client"
+import { signOut } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 
 
@@ -95,7 +96,7 @@ function DropdownProfile({
               <Link
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
                 href="/signin"
-                onClick={() => setDropdownOpen(false)}
+                onClick={() => signOut()}
               >
                 Sign Out
               </Link>

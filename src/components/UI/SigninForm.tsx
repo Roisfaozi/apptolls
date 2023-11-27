@@ -1,7 +1,7 @@
 'use client'
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeEventHandler, useState } from 'react';
 import Alert from '../parts/Alert';
 import Input from '../parts/Input';
@@ -44,7 +44,9 @@ function SignInForm() {
       }
     }
   };
-
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  if (session.status === "authenticated") router.replace('/dashboard')
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsBusy(true)
@@ -55,11 +57,12 @@ function SignInForm() {
     const res = await signIn("credentials", {
       email,
       password,
-      redirect: false
+      redirect: false,
+      callbackUrl
     })
     if (res?.error) return setIsError(res.error)
     setIsBusy(false)
-    // router.replace('/dashboard')
+    router.replace(callbackUrl)
   };
 
   const isValidEmail = (email: string) => {
@@ -67,82 +70,8 @@ function SignInForm() {
     return emailRegex.test(email);
   };
 
-  // if (session.status === "loading") {
-  //   return (
-  //     <>
-  //       <div>
-  //         <div className="flex flex-wrap -mx-3 mb-2 mt-2">
-  //           <div className="w-full px-3 animate-pulse">
-  //             <label className="block bg-gray-200 h-6 w-32 mb-1 rounded" />
-  //             <div className="bg-gray-200 h-10 w-full rounded" />
-  //           </div>
-  //         </div>
-  //         <div className="flex flex-wrap -mx-3 mb-2 mt-2">
-  //           <div className="w-full px-3 animate-pulse">
-  //             <label className="block bg-gray-200 h-6 w-32 mb-1 rounded" />
-  //             <div className="bg-gray-200 h-4 w-full rounded" />
-  //           </div>
-  //         </div>
-  //         <div className="flex flex-wrap -mx-3 mb-4">
-  //           <div className="w-full px-3 animate-pulse">
-  //             <div className="flex justify-between">
-  //               <a href="/reset-password" className="bg-gray-200 h-6 w-32 rounded inline-block">
-  //                 {/* Skeleton for the link */}
-  //               </a>
-  //               <div className="flex items-center">
-  //                 <span />
-  //                 <span className="text-gray-200 ml-2 bg-gray-200 h-4 w-24 rounded inline-block">
-  //                   {/* Skeleton for "Keep me signed in" text */}
-  //                 </span>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <button className="btn text-white bg-gray-200 w-full">
-  //           <div className="animate-pulse h-5 rounded-md">
-  //             {/* Skeleton for button */}
-  //           </div>
-  //         </button>
-  //       </div>
-  //       <div className="flex items-center my-6">
-  //         <div className="border-t border-gray-300 grow mr-3" aria-hidden="true">
-  //           {/* Skeleton for left border */}
-  //         </div>
-  //         <div className="text-gray-600 italic">Or</div>
-  //         <div className="border-t border-gray-300 grow ml-3" aria-hidden="true">
-  //           {/* Skeleton for right border */}
-  //         </div>
-  //       </div>
-  //       <form>
-  //         <div className="flex flex-wrap -mx-3 mb-3">
-  //           <div className="w-full px-3">
-  //             <div className="btn px-0 text-white bg-gray-200 w-full relative flex items-center">
-  //               <div className="animate-pulse h-6 w-full">
-  //                 {/* Skeleton for "Continue with GitHub" button */}
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //         <div className="flex flex-wrap -mx-3">
-  //           <div className="w-full px-3">
-  //             <div className="btn px-0 text-white bg-gray-200 w-full relative flex items-center">
-  //               <div className="animate-pulse h-5 w-full">
-  //                 {/* Skeleton for "Continue with Google" button */}
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </form>
-  //       <div className="text-gray-600 text-center mt-6">
-  //         <div className="animate-pulse h-5 w-48">
-  //           {/* Skeleton for "Don’t you have an account? Sign up" link */}
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
 
-  // }
-  if (session.status !== "loading" && session.status === "authenticated") router.push('/dashboard')
+
 
 
   return (

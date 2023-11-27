@@ -1,4 +1,5 @@
 'use client'
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { ChangeEventHandler, useState } from 'react';
 import Input from '../parts/Input';
@@ -6,6 +7,8 @@ import Input from '../parts/Input';
 
 function SignUpForm() {
   const router = useRouter()
+  const session = useSession()
+
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -42,6 +45,8 @@ function SignUpForm() {
     }
   };
 
+  if (session.status === "authenticated") router.replace('/dashboard')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsBusy(true)
@@ -53,14 +58,15 @@ function SignUpForm() {
       method: "POST",
       body: JSON.stringify(userInfo)
     }).then((res) => res.json())
-
-    router.push('/profile')
+    router.replace('/dashboard')
   };
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^\S+@\S+\.\S+$/;
     return emailRegex.test(email);
   };
+
+
 
   return (
     <form onSubmit={handleSubmit}>
