@@ -26,12 +26,6 @@ export type NewResponse = NextResponse<{
   message?: string
 }>
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
-
 export const POST = async (req: Request): Promise<NewResponse> => {
   try {
     const session = await getAuthSession()
