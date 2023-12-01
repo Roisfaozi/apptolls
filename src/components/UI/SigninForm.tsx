@@ -46,7 +46,9 @@ function SignInForm() {
   };
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+
   if (session.status === "authenticated") router.replace('/dashboard')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsBusy(true)
@@ -69,9 +71,6 @@ function SignInForm() {
     const emailRegex = /^\S+@\S+\.\S+$/;
     return emailRegex.test(email);
   };
-
-
-
 
 
   return (

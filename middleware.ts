@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 
-// the list of all allowed origins
 const allowedOrigins = [
   'http://localhost:3000',
   'https://reelsmaster.vercel.app',

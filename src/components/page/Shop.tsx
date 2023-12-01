@@ -1,3 +1,4 @@
+import ModalAddProduct from '../UI/ModalAddProduct'
 import ProductCard from '../UI/ProductCard'
 
 function Product() {
@@ -8,7 +9,11 @@ function Product() {
       <div className="mb-5">
 
         {/* Title */}
-        <h1 className="text-2xl md:text-3xl text-slate-800 font-bold mb-4">Find the right product for you ✨</h1>
+        <div className='flex flex-row justify-between'>
+          <h1 className="text-2xl md:text-3xl text-slate-800 font-bold mb-4">Find the right product for you ✨</h1>
+          <ModalAddProduct />
+        </div>
+
         <div className="mb-4 border-b border-slate-200"></div>
 
         <div>
