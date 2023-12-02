@@ -1,7 +1,27 @@
-import ModalAddProduct from '../UI/ModalAddProduct'
-import ProductCard from '../UI/ProductCard'
+import { getProduct } from '@/utils/api/products';
+import ModalAddProduct from '../UI/ModalAddProduct';
+import ProductCard from '../UI/ProductCard';
 
-function Product() {
+interface Image {
+  _id: string;
+  imageUrl: string;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  license_id: string[];
+  image_id: Image[];
+}
+interface ApiResponse {
+  products: Product[];
+}
+async function Product() {
+  const { products }: ApiResponse = await getProduct()
+
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -19,9 +39,12 @@ function Product() {
         <div>
           <div className="mt-8">
             <div className="grid grid-cols-12 gap-6">
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
+              {products.map((product: Product) => (
+                <ProductCard
+                  key={product.id.toString()}
+                  product={product}
+                />
+              ))}
             </div>
           </div>
         </div>

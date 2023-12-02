@@ -1,21 +1,33 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import AppImage01 from '../../images/applications-image-01.jpg';
+import { Product } from '../page/Shop';
+interface ProductCardProps {
+  product: Product;
+}
 
+function ProductCard({ product }: ProductCardProps) {
+  const {
+    id,
+    name,
+    description,
+    price,
+    license_id,
+    image_id,
+  } = product
 
-function ProductCard() {
+  const imageUrl = product.image_id[0].imageUrl
   return (
     <div className="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden">
       <div className="flex flex-col h-full">
         {/* Image */}
-        <Image className="w-full" src={AppImage01} width="286" height="160" alt="Application 01" />
+        <Image className="w-full" src={imageUrl} width="286" height="160" alt="Application 01" />
         {/* Card Content */}
         <div className="grow flex flex-col p-5">
           {/* Card body */}
           <div className="grow">
             {/* Header */}
             <header className="mb-3">
-              <h3 className="text-lg text-slate-800 font-semibold">HTML, CSS, JavaScript - Build 6 Creative Projects</h3>
+              <h3 className="text-lg text-slate-800 font-semibold">{name}</h3>
             </header>
             {/* Rating and price */}
             <div className="flex flex-wrap justify-between items-center mb-4">
@@ -59,7 +71,7 @@ function ProductCard() {
               </div>
               {/* Price */}
               <div>
-                <div className="inline-flex text-sm font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2 py-0.5">$89.00</div>
+                <div className="inline-flex text-sm font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2 py-0.5">Rp.{price}</div>
               </div>
             </div>
             {/* Features list */}

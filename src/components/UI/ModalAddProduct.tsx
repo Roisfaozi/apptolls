@@ -35,7 +35,6 @@ function ModalAddProduct() {
       })
       // handle the error
       if (!res.ok) throw new Error(await res.text())
-      console.log(res)
     } catch (e: any) {
       console.error(e)
     }
