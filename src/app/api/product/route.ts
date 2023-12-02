@@ -9,15 +9,16 @@ export interface NewProductRequest {
   name: string
   description: string
   price: number
-  imageId: string
+  image_id: string
 }
 export interface NewProductResponse {
   id: string
   name: string
   description: string
   price: number
+  purchasedCount?: number
   license_id?: string[]
-  imageId?: string[]
+  image_id?: string[]
 }
 
 export type NewResponse = NextResponse<{
@@ -31,7 +32,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     const session = await getAuthSession()
 
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     const productData = await req.formData()
 
@@ -71,7 +72,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
       price: price,
     })
 
-    newProduct.imageId.push(imageSave._id)
+    newProduct.image_id.push(imageSave._id)
     await newProduct.save()
     return NextResponse.json({
       product: {
@@ -97,12 +98,17 @@ export const GET = async (): Promise<Response> => {
       return new NextResponse('unauthorised', { status: 401 })
     }
     await startDb()
-    const products = await ProductModel.find().populate({
-      path: 'license_id',
-      select: 'id license_id',
-    })
+    const products = await ProductModel.find()
+      .populate({
+        path: 'license_id',
+        select: 'id license_id',
+      })
+      .populate({
+        path: 'image_id',
+        select: 'id image_id',
+      })
     const license = await LicenseModel.find()
-
+    const image = await ImageModel.find()
     return NextResponse.json({
       products: products.map((product) => ({
         id: product._id.toString(),
@@ -110,6 +116,7 @@ export const GET = async (): Promise<Response> => {
         description: product.description,
         price: product.price,
         license_id: license,
+        image_id: image,
       })),
     })
   } catch (error) {

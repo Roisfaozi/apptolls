@@ -1,5 +1,6 @@
 import startDb from '@/lib/db'
 import { getAuthSession } from '@/lib/nextauth-options'
+import { LicenseModel } from '@/models/licenseModels'
 import { ProductModel } from '@/models/productModels'
 import { NextResponse } from 'next/server'
 import { NewProductRequest, NewResponse } from '../route'
@@ -105,6 +106,11 @@ export const DELETE = async (
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 })
     }
+
+    const license = product.license_id
+    license?.forEach(async (license_id) => {
+      await LicenseModel.deleteOne({ license_id })
+    })
 
     await product.deleteOne()
 
