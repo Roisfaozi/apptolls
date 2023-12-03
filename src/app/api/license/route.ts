@@ -33,7 +33,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
     }
     await startDb()
 

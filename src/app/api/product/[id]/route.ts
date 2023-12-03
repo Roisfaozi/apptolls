@@ -1,5 +1,6 @@
 import startDb from '@/lib/db'
 import { getAuthSession } from '@/lib/nextauth-options'
+import { ImageModel } from '@/models/imageModels'
 import { LicenseModel } from '@/models/licenseModels'
 import { ProductModel } from '@/models/productModels'
 import { NextResponse } from 'next/server'
@@ -110,6 +111,10 @@ export const DELETE = async (
     const license = product.license_id
     license?.forEach(async (license_id) => {
       await LicenseModel.deleteOne({ license_id })
+    })
+    const image = product.image_id
+    image?.forEach(async (image_id) => {
+      await ImageModel.deleteOne({ image_id })
     })
 
     await product.deleteOne()

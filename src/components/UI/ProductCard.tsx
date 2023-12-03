@@ -1,5 +1,6 @@
+"use client"
+import { Button } from '@/components/parts/Button';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Product } from '../page/Shop';
 interface ProductCardProps {
   product: Product;
@@ -16,6 +17,17 @@ function ProductCard({ product }: ProductCardProps) {
   } = product
 
   const imageUrl = product.image_id[0].imageUrl
+
+  const handleClickLicense = async () => {
+    const license = await getLicense(id);
+    if (!license.message) {
+      alert(license.error)
+    }
+    alert(license.message);
+
+  }
+
+
   return (
     <div className="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-slate-200 overflow-hidden">
       <div className="flex flex-col h-full">
@@ -104,7 +116,7 @@ function ProductCard({ product }: ProductCardProps) {
           </div>
           {/* Card footer */}
           <div>
-            <Link className="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white" href="#0">Buy Now</Link>
+            <Button className="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white" onClick={handleClickLicense}>Buy Now</Button>
           </div>
         </div>
       </div>
@@ -113,3 +125,18 @@ function ProductCard({ product }: ProductCardProps) {
 }
 
 export default ProductCard
+
+const getLicense = async (productId: string) => {
+  try {
+    const response = await fetch(`/api/license`, {
+      method: 'POST',
+      body: JSON.stringify({ product_id: productId }),
+    }).then((res) => res.json())
+    if (response.error) throw new Error(await response)
+    return response
+  } catch (error) {
+    console.log('failed to fetch data', error)
+
+    return error
+  }
+}

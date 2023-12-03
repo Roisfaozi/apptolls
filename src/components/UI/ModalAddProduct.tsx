@@ -10,7 +10,7 @@ function ModalAddProduct() {
     price: '',
   });
 
-  const [files, setFiles] = useState<File>();
+  const [files, setFiles] = useState<File | null>();
 
   const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target;
@@ -38,6 +38,12 @@ function ModalAddProduct() {
     } catch (e: any) {
       console.error(e)
     }
+    setFormData({
+      name: '',
+      description: '',
+      price: '',
+    })
+    setFiles(null)
     setProductModalOpen(false);
   };
 

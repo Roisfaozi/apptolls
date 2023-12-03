@@ -18,6 +18,9 @@ export interface Product {
 interface ApiResponse {
   products: Product[];
 }
+
+export const revalidate = 3600
+
 async function Product() {
   const { products }: ApiResponse = await getProduct()
 
