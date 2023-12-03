@@ -10,7 +10,7 @@ export const GET = async (
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     await startDb()
     const id = context.params.id
@@ -40,7 +40,7 @@ export const DELETE = async (
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     await startDb()
     const id = context.params.id

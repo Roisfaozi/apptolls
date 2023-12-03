@@ -12,7 +12,7 @@ export const GET = async (
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     await startDb()
     const id = context.params.id
@@ -47,7 +47,7 @@ export const PUT = async (
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     const pageData = (await req.json()) as NewPageRequest
     await startDb()

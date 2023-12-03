@@ -95,7 +95,7 @@ export const GET = async (): Promise<Response> => {
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     await startDb()
     const products = await ProductModel.find()

@@ -27,7 +27,7 @@ export const POST = async (req: Request): Promise<NewResponse> => {
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     const pageData = (await req.json()) as NewPageRequest
     await startDb()
@@ -67,7 +67,7 @@ export const GET = async (req: Request): Promise<Response> => {
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     await startDb()
     const page = await PageModel.find()

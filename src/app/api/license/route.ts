@@ -88,7 +88,7 @@ export const GET = async (req: Request): Promise<Response> => {
   try {
     const session = await getAuthSession()
     if (!session?.user) {
-      return new NextResponse('unauthorised', { status: 401 })
+      return new NextResponse('unauthorized', { status: 401 })
     }
     await startDb()
     const license = await LicenseModel.find()
