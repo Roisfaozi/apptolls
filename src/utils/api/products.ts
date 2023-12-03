@@ -5,7 +5,7 @@ const getCookie = async (name: string) => {
 }
 
 const getProduct = async () => {
-  const cookie = await getCookie('next-auth.session-token')
+  const cookie = await getCookie('__Secure-next-auth.session-token')
   const response = await fetch(`${process.env.NEXTAUTH_URL}api/product`, {
     cache: 'force-cache',
     headers: {
