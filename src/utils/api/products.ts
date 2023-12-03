@@ -9,7 +9,7 @@ const getProduct = async () => {
   const response = await fetch(`${process.env.NEXTAUTH_URL}api/product`, {
     cache: 'force-cache',
     headers: {
-      Cookie: `next-auth.session-token=${cookie}`,
+      Cookie: `__Secure-next-auth.session-token=${cookie}`,
     },
   })
   if (response.status === 200) {
